@@ -1,0 +1,24 @@
+Index: modules/contrib/php/src/Plugin/Condition/Php.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/contrib/php/src/Plugin/Condition/Php.php	(date 1525075164000)
++++ modules/contrib/php/src/Plugin/Condition/Php.php	(date 1525075164000)
+@@ -65,7 +65,14 @@
+    * {@inheritdoc}
+    */
+   public function evaluate() {
+-    return php_eval($this->configuration['php']);
++	  if (isset($this->configuration['php']) && !empty($this->configuration['php']) && trim($this->configuration['php']) !== '' ) {
++           return php_eval($this->configuration['php']);
++	  }
++	  else{
++	    return true;
++	  }
+   }
++}
+ 
+-}
++
++
