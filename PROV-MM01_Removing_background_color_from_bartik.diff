@@ -1,0 +1,12 @@
+diff --git a/core/themes/bartik/css/colors.css b/core/themes/bartik/css/colors.css
+index 6d71a9e..e2f3066 100644
+--- a/core/themes/bartik/css/colors.css
++++ b/core/themes/bartik/css/colors.css
+@@ -2,7 +2,6 @@
+ 
+ body {
+   color: #3b3b3b;
+-  background: #292929;
+ }
+ #page,
+ #main-wrapper,
