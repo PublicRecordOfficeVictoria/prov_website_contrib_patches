@@ -1,0 +1,24 @@
+diff --git a/css/entity_browser.file_browser.css b/css/entity_browser.file_browser.css
+old mode 100644
+new mode 100755
+index c8ed44c..8ab67c4
+--- a/css/entity_browser.file_browser.css
++++ b/css/entity_browser.file_browser.css
+@@ -1,3 +1,17 @@
++a.entity-browser-handle{
++    background: #dbdbdb;
++    padding: 10px 20px;
++    display: inline-block;
++    margin-top: 20px;
++    margin-bottom: -10px;
++    color: #3b3b3b;
++    border-bottom: 0px;
++}
++a.entity-browser-handle:hover{
++    background: #999;
++    color: #FFF;
++}
++
+ @media screen and (max-width: 1250px) {
+     .entities-list tbody * {
+         display: block;
