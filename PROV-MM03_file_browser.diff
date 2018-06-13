@@ -1,0 +1,482 @@
+diff --git a/config/install/entity_browser.browser.browse_files.yml b/config/install/entity_browser.browser.browse_files.yml
+index ca0e44b..96031ff 100644
+--- a/config/install/entity_browser.browser.browse_files.yml
++++ b/config/install/entity_browser.browser.browse_files.yml
+@@ -8,7 +8,7 @@ dependencies:
+     module:
+       - file_browser
+ name: browse_files
+-label: 'Browser for files'
++label: 'File Library'
+ display: iframe
+ display_configuration:
+   width: '100%'
+diff --git a/css/file_browser.view.prov.css b/css/file_browser.view.prov.css
+index 1d4aca9..df8f191 100644
+--- a/css/file_browser.view.prov.css
++++ b/css/file_browser.view.prov.css
+@@ -1,281 +1,40 @@
+ /**
+-* @file file_browser.view.css
++* @file file_browser.view.prov.css
+ */
+ 
+-
+-/* Generic styles */
+-
+-.pager {
+-  padding: 20px;
+-}
+-
+-/* set default standard media queries for responsive grid. */
+-@media only screen and (min-width: 320px) {
+-  .grid-sizer,
+-  .grid-item {
+-    width: calc(50% - 5px);
+-  }
+-  .gutter-sizer {
+-    width: 5px;
+-  }
+-  .grid-item {
+-    margin-bottom: 5px;
+-  }
+-}
+-
+-@media only screen and (min-width: 768px) {
+-  .grid-sizer,
+-  .grid-item {
+-    width: calc(33% - 10px);
+-  }
+-  .gutter-sizer {
+-    width: 10px;
+-  }
+-  .grid-item {
+-    margin-bottom: 10px;
+-  }
+-}
+-
+-@media only screen and (min-width: 992px) {
+-  .grid-sizer,
+-  .grid-item {
+-    width: calc(25% - 10px);
+-  }
+-  .gutter-sizer {
+-    width: 10px;
+-  }
+-  .grid-item {
+-    margin-bottom: 10px;
+-  }
+-}
+-
+-/* Jump back down for XL screens to better utilize the space. */
+-@media only screen and (min-width: 1600px) {
+-  .grid-sizer,
+-  .grid-item {
+-    width: calc(15% - 10px);
+-  }
+-  .gutter-sizer {
+-    width: 10px;
+-  }
+-  .grid-item {
+-    margin-bottom: 10px;
+-  }
+-}
+-
+-.grid-item {
+-  display: block;
+-  opacity: 0;
+-  text-align: center;
+-  background-color: #dedede;
+-  overflow: hidden;
+-  border-radius: 2px;
+-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+-}
+-
+-.grid-item.item-style {
+-  opacity: 1;
+-  transition: opacity .25s ease-in-out, box-shadow .25s ease-in-out;
+-  -moz-transition: opacity .25s ease-in-out, box-shadow .25s ease-in-out;;
+-  -webkit-transition: opacity .25s ease-in-out, box-shadow .25s ease-in-out;;
+-}
+-
+-.grid-item:hover {
+-  cursor: pointer;
+-}
+-
+-.grid-item.checked:before {
+-  content: " ";
+-  color: transparent;
+-  position: absolute;
+-  left: 0;
+-  right: 0;
+-  top: 0;
+-  width: calc(100% - 4px);
+-  height: calc(100% - 4px);
+-  border: 2px solid #37802f;
+-  overflow: hidden;
+-}
+-
+-.grid-item:hover {
+-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 7px 3px rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+-}
+-
+-.view-content {
+-  margin: 0 auto;
+-  width: 100% !important;
+-}
+-
+-.grid-item img {
+-  vertical-align: bottom;
+-  width: 100%;
+-  height: auto;
+-}
+-
+-.grid-item img::selection {
+-  background: transparent;
+-}
+-
+-.grid-item .views-field-entity-browser-select {
++div.js-form-type-dropzonejs label[for="edit-upload"]{
+   display: none;
+ }
+ 
+-.grid-item:after {
+-  content: " ";
+-  width: 100%;
+-  height: 100%;
+-  top: 0;
+-  left: 0;
+-  position: absolute;
++h1.page-title{
++  color: #0071b3;
+ }
+ 
+-.grid-item-info {
+-  position: absolute;
+-  z-index: 1;
+-  width: calc(100% - 20px);
+-  bottom: 0;
+-  background-color: #2d2d2d;
+-  color: #dedede;
+-  padding: 10px;
++nav.eb-tabs ul{
++  border-bottom: 2px solid #0071b3;
+ }
+ 
+-.grid-item-info-left {
+-  float: left;
+-  text-align: left;
+-  white-space: nowrap;
+-  overflow: hidden;
+-  text-overflow: ellipsis;
+-  max-width: 50%;
++nav.eb-tabs ul li{
++  background-color: #EEE;
++  margin-right: 5px;
++  border: 0px;
+ }
+ 
+-.grid-item-info-right {
+-  float: right;
++nav.eb-tabs ul li a{
++  border: 0px;
+ }
+ 
+-.file-browser-form {
+-  position: relative;
++nav.eb-tabs ul li.active{
++  border: 0px;
+ }
+ 
+-
+-/* Remove border above tabs. */
+-
+-.file-browser-form .is-collapse-enabled .tabs:before,
+-.file-browser-form .is-horizontal .tabs:before {
+-  background-color: transparent;
+-}
+-
+-input[type="submit"][name="filter"] {
++.view-file-entity-browser .views-exposed-form .form-actions{
++  float: left;
++  clear: none;
++  margin-top: 20px;
+   margin-left: 10px;
+-  margin-top: 30px;
+-}
+-
+-.layout-container {
+-  margin: 0;
+-}
+-
+-.file-browser-actions {
+-  position: fixed;
+-  bottom: 0;
+-  display: flex;
+-  flex-direction: row-reverse;
+-  justify-content: flex-end;
+-  align-items: center;
+-  z-index: 2;
+-  padding: 10px;
+-  width: 100%;
+-  background: white;
+-  border-top: 1px solid #b8b8b8;
+-}
+-
+-input.entity-browser-show-selection {
+-  display: none;
+-}
+-
+-.entities-list .item-container {
+-  position: relative;
+-  border: 1px dashed gray;
+-  margin: 5px;
+-}
+-
+-.entities-list .item-container > img,
+-.entities-list .item-container > input {
+-  margin: 0;
+-}
+-
+-.entities-list .item-container:hover {
+-  opacity: 1;
+-}
+-
+-.entities-list .item-container:hover img,
+-.entities-list .item-container:hover input {
+-  transition: .2s;
+-}
+-
+-.entities-list .item-container:hover img {
+-  opacity: .6;
+-}
+-
+-.entities-list .item-container:hover input {
+-  opacity: 1;
+-}
+-
+-.entities-list .item-container input {
+-  background: url(../images/remove.svg);
+-  opacity: 0;
+-  background-size: cover;
+-  color: transparent;
+-  text-shadow: none;
+-  position: absolute;
+-  width: 20px;
+-  height: 20px;
+-  padding: 0;
+-  top: 2px;
+-  right: 2px;
+-  border-radius: 10px;
+-  margin: 0;
+-  background-color: #dedede;
+-  border: 1px solid #585858;
+-}
+-
+-.entities-list .item-container input:hover {
+-  background-color: #afafaf;
+-}
+-
+-.file-browser-file-counter {
+-  display: flex;
+-  align-items: center;
+-  height: 25px;
+-  padding: 0 0 0 25px;
+-  margin-bottom: 5px;
+-  background: url(../images/checkmark.svg);
+-  background-position: 0px;
+-  background-size: 20px;
+-  background-repeat: no-repeat;
+-}
+-
+-.grid-item:hover .file-browser-preview-button {
+-  opacity: 1;
+-}
+-
+-.file-browser-preview-button {
+-  position: absolute;
+-  top: 5px;
+-  right: 5px;
+-  background: url(../images/preview.svg);
+-  z-index: 2;
+-  background-size: 30px;
+-  background-position: 5px;
+-  background-color: #2d2d2d;
+-  border-radius: 50%;
+-  height: 40px;
+-  width: 40px;
+-  background-repeat: no-repeat;
+-  color: transparent;
+-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+-  opacity: 0;
+-  transition: opacity .2s;
+ }
+ 
+-.file-browser-preview-button + .ajax-progress {
++.messages__wrapper{
+   display: none;
+ }
+diff --git a/file_browser.libraries.yml b/file_browser.libraries.yml
+index 17c5a19..4fbee92 100644
+--- a/file_browser.libraries.yml
++++ b/file_browser.libraries.yml
+@@ -14,9 +14,11 @@ view:
+   version: VERSION
+   js:
+     js/file_browser.view.js: {}
++    js/file_browser.view.prov.js: {}
+   css:
+     theme:
+       css/file_browser.view.css: {}
++      css/file_browser.view.prov.css: {}
+   dependencies:
+     - core/jquery
+     - core/drupal
+diff --git a/js/file_browser.view.prov.js b/js/file_browser.view.prov.js
+index c596dcd..b0bc868 100644
+--- a/js/file_browser.view.prov.js
++++ b/js/file_browser.view.prov.js
+@@ -1,128 +1,11 @@
+ /**
+- * @file file_browser.view.js
++ * @file file_browser.view.prov.js
+  */
+ 
+ (function ($, Drupal) {
+ 
+   "use strict";
+ 
+-  /**
+-   * Renders the file counter based on our internally tracked count.
+-   */
+-  function renderFileCounter () {
+-    $('.file-browser-file-counter').each(function () {
+-      $(this).remove();
+-    });
+-    var counter = [];
+-    $('.entities-list [data-entity-id]').each(function () {
+-      if (counter[this.dataset.entityId]) {
+-        ++counter[this.dataset.entityId];
+-      }
+-      else {
+-        counter[this.dataset.entityId] = 1;
+-      }
+-    });
+-    for (var id in counter) {
+-      var count = counter[id];
+-      if (count > 0) {
+-        var text = Drupal.formatPlural(count, 'Selected one time', 'Selected @count times');
+-        var $counter = $('<div class="file-browser-file-counter"></div>').text(text);
+-        $('[name="entity_browser_select[file:' + id + ']"]').closest('.grid-item').find('.grid-item-info').prepend($counter);
+-      }
+-    }
+-  }
+-
+-  /**
+-   * Adjusts the padding on the body to account for the fixed actions bar.
+-   */
+-  function adjustBodyPadding () {
+-    setTimeout(function () {
+-      $('body').css('padding-bottom', $('.file-browser-actions').outerHeight() + 'px');
+-    }, 2000);
+-  }
+-
+-  /**
+-   * Initializes Masonry for the view widget.
+-   */
+-  Drupal.behaviors.fileBrowserMasonry = {
+-    attach: function (context) {
+-      var $item = $('.grid-item', context);
+-      var $view = $item.parent().once('file-browser-init');
+-      if ($view.length) {
+-        $view.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>');
+-
+-        // Indicate that images are loading.
+-        $view.append('<div class="ajax-progress ajax-progress-fullscreen">&nbsp;</div>');
+-        $view.imagesLoaded(function () {
+-          // Save the scroll position.
+-          var scroll = document.body.scrollTop;
+-          // Remove old Masonry object if it exists. This allows modules like
+-          // Views Infinite Scroll to function with File Browser.
+-          if ($view.data('masonry')) {
+-            $view.masonry('destroy');
+-          }
+-          $view.masonry({
+-            columnWidth: '.grid-sizer',
+-            gutter: '.gutter-sizer',
+-            itemSelector: '.grid-item',
+-            percentPosition: true,
+-            isFitWidth: true
+-          });
+-          // Jump to the old scroll position.
+-          document.body.scrollTop = scroll;
+-          // Add a class to reveal the loaded images, which avoids FOUC.
+-          $item.addClass('item-style');
+-          $view.find('.ajax-progress').remove();
+-        });
+-      }
+-    }
+-  };
+-
+-  /**
+-   * Checks the hidden Entity Browser checkbox when an item is clicked.
+-   *
+-   * This behavior provides backwards-compatibility for users not using
+-   * auto-select and multi-step.
+-   */
+-  Drupal.behaviors.fileBrowserClickProxy = {
+-    attach: function (context, settings) {
+-      if (!settings.entity_browser_widget.auto_select) {
+-        $('.grid-item', context).once('bind-click-event').click(function () {
+-          var input = $(this).find('.views-field-entity-browser-select input');
+-          input.prop('checked', !input.prop('checked'));
+-          if (input.prop('checked')) {
+-            $(this).addClass('checked');
+-          }
+-          else {
+-            $(this).removeClass('checked');
+-          }
+-        });
+-      }
+-    }
+-  };
+-
+-  /**
+-   * Tracks when entities have been added or removed in the multi-step form,
+-   * and displays that information on each grid item.
+-   */
+-  Drupal.behaviors.fileBrowserEntityCount = {
+-    attach: function (context) {
+-      adjustBodyPadding();
+-      renderFileCounter();
+-      // Indicate when files have been selected.
+-      var $entities = $('.entities-list', context).once('file-browser-add-count');
+-      if ($entities.length) {
+-        $entities.bind('add-entities', function (event, entity_ids) {
+-          adjustBodyPadding();
+-          renderFileCounter();
+-        });
+-
+-        $entities.bind('remove-entities', function (event, entity_ids) {
+-          adjustBodyPadding();
+-          renderFileCounter();
+-        });
+-      }
+-    }
+-  };
++  $('h1.page-title').html("Files Library");
+ 
+ }(jQuery, Drupal));
+diff --git a/src/Plugin/views/field/FileBrowserPreview.php b/src/Plugin/views/field/FileBrowserPreview.php
+index cc2c6ea..e560c43 100644
+--- a/src/Plugin/views/field/FileBrowserPreview.php
++++ b/src/Plugin/views/field/FileBrowserPreview.php
+@@ -25,7 +25,7 @@ class FileBrowserPreview extends FieldPluginBase {
+     $build['image'] = $this->getFilePreview($file, 'file_entity_browser_thumbnail');
+ 
+     $build['preview'] = [
+-      '#title' => $this->t('Preview'),
++      '#title' => $this->t(''),
+       '#type' => 'link',
+       '#url' => Url::fromRoute('file_browser.preview', [
+         'file' => $file->id(),

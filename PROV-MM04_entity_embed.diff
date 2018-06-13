@@ -1,0 +1,16 @@
+diff --git a/css/entity_embed.dialog.css b/css/entity_embed.dialog.css
+index 5dabd95..effd0b2 100644
+--- a/css/entity_embed.dialog.css
++++ b/css/entity_embed.dialog.css
+@@ -11,6 +11,11 @@
+   max-width: 1200px;
+ }
+ 
++.js-form-item-attributes-data-entity-embed-display-settings-image-style .description{
++  display: none;
++}
++
++
+ @media screen and (min-width: 768px) {
+   .ui-dialog--narrow.entity-select-dialog .entity-embed-dialog-step--select {
+     min-width: 730px; // 95%
