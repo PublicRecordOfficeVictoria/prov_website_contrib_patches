@@ -53,6 +53,10 @@ index 1d4aca9..12516aa 100644
 +  margin-top: 20px;
 +  margin-left: 10px;
 +}
++.messages__wrapper{
++  display: none;
++}
++
 +
 diff --git a/js/file_browser.view.js b/js/file_browser.view.js
 index c596dcd..42c03da 100644
