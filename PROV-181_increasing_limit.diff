@@ -1,0 +1,37 @@
+diff --git a/src/Annotation/EntityEmbedDisplay.php b/src/Annotation/EntityEmbedDisplay.php
+index ae0194b..0661c29
+--- a/src/Form/EntityEmbedDialog.php
++++ b/src/Form/EntityEmbedDialog.php
+@@ -464,6 +464,7 @@ class EntityEmbedDialog extends FormBase {
+       $form['attributes']['data-caption'] = array(
+         '#title' => $this->t('Caption'),
+         '#type' => 'textfield',
++        '#maxlength' => 1024,
+         '#default_value' => isset($entity_element['data-caption']) ? Html::decodeEntities($entity_element['data-caption']) : '',
+         '#element_validate' => array('::escapeValue'),
+       );
+diff --git a/src/Plugin/entity_embed/EntityEmbedDisplay/FileFieldFormatter.php b/src/Plugin/entity_embed/EntityEmbedDisplay/FileFieldFormatter.php
+index ee29ae3..113cc99
+--- a/src/Plugin/entity_embed/EntityEmbedDisplay/FileFieldFormatter.php
++++ b/src/Plugin/entity_embed/EntityEmbedDisplay/FileFieldFormatter.php
+@@ -50,6 +50,7 @@ class FileFieldFormatter extends EntityReferenceFieldFormatter {
+     $form['description'] = array(
+       '#type' => 'textfield',
+       '#title' => $this->t('Description'),
++      '#maxlength' => 1024,
+       '#default_value' => $this->getConfigurationValue('description'),
+       '#description' => $this->t('The description may be used as the label of the link to the file.'),
+     );
+diff --git a/src/Plugin/entity_embed/EntityEmbedDisplay/ImageFieldFormatter.php b/src/Plugin/entity_embed/EntityEmbedDisplay/ImageFieldFormatter.php
+index 76b1641..82e7f64
+--- a/src/Plugin/entity_embed/EntityEmbedDisplay/ImageFieldFormatter.php
++++ b/src/Plugin/entity_embed/EntityEmbedDisplay/ImageFieldFormatter.php
+@@ -166,7 +166,7 @@ class ImageFieldFormatter extends FileFieldFormatter {
+       '#parents' => array('attributes', 'alt'),
+       '#required' => TRUE,
+       '#required_error' => $this->t('Alternative text is required.<br />(Only in rare cases should this be left empty. To create empty alternative text, enter <code>""</code> — two double quotes without any content).'),
+-      '#maxlength' => 512,
++      '#maxlength' => 1024,
+     );
+     $form['title'] = array(
+       '#type' => 'textfield',
