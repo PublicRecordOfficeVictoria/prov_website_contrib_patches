@@ -1,6 +1,4 @@
 diff --git a/css/entity_browser.file_browser.css b/css/entity_browser.file_browser.css
-old mode 100644
-new mode 100755
 index c8ed44c..be9d19d
 --- a/css/entity_browser.file_browser.css
 +++ b/css/entity_browser.file_browser.css
@@ -27,8 +25,6 @@ index c8ed44c..be9d19d
      .entities-list tbody * {
          display: block;
 diff --git a/js/entity_browser.iframe.js b/js/entity_browser.iframe.js
-old mode 100644
-new mode 100755
 index b3e7e0a..b83bf48
 --- a/js/entity_browser.iframe.js
 +++ b/js/entity_browser.iframe.js
